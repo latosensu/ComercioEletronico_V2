@@ -5,9 +5,10 @@
 // You're free to add application-wide JavaScript to this file, but it's generally better
 // to create separate JavaScript files as needed.
 //
+// O require_tree já importa todos os javascripts da árvore, podemos tirá-lo e especificar o arquivo que adicionamos
 //= require jquery-2.2.0.min
 //= require bootstrap
-//= require_tree .
+//= require sb-admin-2
 //= require_self
 
 if (typeof jQuery !== 'undefined') {
