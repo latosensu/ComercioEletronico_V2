@@ -1,6 +1,7 @@
 package comercioeletronico
 
 import grails.converters.JSON
+import grails.validation.ValidationException
 
 class CarrinhoComprasController {
 
@@ -27,6 +28,10 @@ class CarrinhoComprasController {
 
     //Bean utilizado para mostrar a mensagem adequada para cada tipo de erro
     def messageSource
+
+    //Bean do nosso service PedidoService. O Grails injeta automaticamente essa
+    //dependência para nós.
+    def pedidoService
 
     def index() {
         //Por convenção, ao utilizar o respond, o Grails procura uma view index,
@@ -57,5 +62,24 @@ class CarrinhoComprasController {
             return
         }
         render([sucesso: "Produto removido com sucesso"] as JSON)
+    }
+
+    def finalizarCarrinho() {
+        try {
+            pedidoService.registrarPedido(carrinhoCompras)
+        }
+        catch (ValidationException e) {
+            //Se não for possível registrar o pedido, mostramos os erros
+            def erros = e.errors.allErrors.inject([], { listaErros, erro ->
+                (listaErros << messageSource.getMessage(erro, Locale.default))
+            })
+
+            render(erros as JSON)
+            return
+        }
+        //Se finalizarmos o pedido, reiniciamos nosso carrinho de compras
+        //e mostramos mensagem de sucesso
+        carrinhoCompras = new ArrayList<ListaProduto>()
+        render([sucesso: "Pedido finalizado com sucesso"])
     }
 }
