@@ -47,7 +47,7 @@ class CarrinhoComprasController {
         CarrinhoCompras carrinhoCompras = session['carrinhoCompras']
         if (!carrinhoCompras){
             carrinhoCompras = new CarrinhoCompras()
-            session.carrinhoCompras = carrinhoCompras
+
         }
         return carrinhoCompras
     }
@@ -62,6 +62,7 @@ class CarrinhoComprasController {
         }
         CarrinhoCompras carrinhoCompras = obterCarrinhoCompras()
         carrinhoCompras.adicionarProduto(listaProduto)
+        session.carrinhoCompras = carrinhoCompras
         flash.message = "Produto adicionado com sucesso"
         redirect (controller: 'produto')
 //        render([mensagem: "Produto adicionado com sucesso"] as JSON)
@@ -69,14 +70,16 @@ class CarrinhoComprasController {
 
     def removerProduto() {
         Produto produto = Produto.get(params.id)
+        CarrinhoCompras carrinhoCompras = obterCarrinhoCompras()
         try {
-            CarrinhoCompras carrinhoCompras = obterCarrinhoCompras()
             carrinhoCompras.removerProduto(produto)
         }
         catch (Exception e) {
             render([erro: e.message] as JSON)
             return
         }
+
+        session.carrinhoCompras = carrinhoCompras
         flash.message = "Produto removido com sucesso"
         redirect (controller: 'produto')
 //        render([sucesso: "Produto removido com sucesso"] as JSON)
@@ -84,8 +87,9 @@ class CarrinhoComprasController {
 
     def finalizarCarrinho() {
         CarrinhoCompras carrinhoCompras = obterCarrinhoCompras()
+        def novoPedido = null
         try {
-            pedidoService.registrarPedido(carrinhoCompras)
+            novoPedido = pedidoService.registrarPedido(carrinhoCompras)
         }
         catch (ValidationException e) {
             //Se não for possível registrar o pedido, mostramos os erros
@@ -99,7 +103,9 @@ class CarrinhoComprasController {
         //Se finalizarmos o pedido, reiniciamos nosso carrinho de compras
         //e mostramos mensagem de sucesso
         session['carrinhoCompras'] = new ArrayList<ListaProduto>()
-        render([sucesso: "Pedido finalizado com sucesso"])
+
+//        render([sucesso: "Pedido finalizado com sucesso"])
+        redirect controller: 'pedido', action: 'show', id: novoPedido.id
     }
 
     def selecionarProduto(Produto produto){
