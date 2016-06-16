@@ -62,7 +62,9 @@ class CarrinhoComprasController {
         }
         CarrinhoCompras carrinhoCompras = obterCarrinhoCompras()
         carrinhoCompras.adicionarProduto(listaProduto)
-        render([mensagem: "Produto adicionado com sucesso"] as JSON)
+        flash.message = "Produto adicionado com sucesso"
+        redirect (controller: 'produto')
+//        render([mensagem: "Produto adicionado com sucesso"] as JSON)
     }
 
     def removerProduto() {
@@ -75,7 +77,9 @@ class CarrinhoComprasController {
             render([erro: e.message] as JSON)
             return
         }
-        render([sucesso: "Produto removido com sucesso"] as JSON)
+        flash.message = "Produto removido com sucesso"
+        redirect (controller: 'produto')
+//        render([sucesso: "Produto removido com sucesso"] as JSON)
     }
 
     def finalizarCarrinho() {

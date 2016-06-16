@@ -38,6 +38,12 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-body">
+                    <g:if test="${flash.message}">
+                        <div class="alert alert-info">
+                            ${flash.message}.
+                        </div>
+                    </g:if>
+
                     <h3>Catálogo</h3>
                     <p>Procure pelos produtos que deseja adicionar no carrinho </p>
 
