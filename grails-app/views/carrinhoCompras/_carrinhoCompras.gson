@@ -1,0 +1,10 @@
+//Template que pode ser utilizado em várias views diferentes
+//Especificamos um model
+model {
+  CarrinhoCompras carrinhoCompras
+}
+json {
+  numeroItens carrinhoCompras.numeroItens
+  precoTotal carrinhoCompras.precoTotal
+  itensDoCarrinho carrinhoCompras.itens.collect{return [nome: it.produto.titulo, quantidade: it.quantidade]}
+}
