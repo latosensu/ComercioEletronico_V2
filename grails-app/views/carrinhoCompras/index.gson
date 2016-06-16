@@ -1,0 +1,7 @@
+//View JSON que será utilizada como resposta do método index do controller
+model {
+  CarrinhoCompras carrinhoCompras
+}
+//Podemos utiizar o render para renderizar o template que criamos, e passamos como
+//model desse template o carrinhoCompras que recebemos como model do controller
+json g.render(template:"carrinhoCompras", model:[carrinhoCompras: carrinhoCompras])
