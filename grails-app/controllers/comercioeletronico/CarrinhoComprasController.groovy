@@ -20,7 +20,7 @@ class CarrinhoComprasController {
     //O allowedMethods define que tipo de método HTTP cada uma das nossas
     //actions consegue responder. Se o usuário tentar mandar um outro tipo
     //de método HTTP, receberá uma resposta 405 (Method Not Allowed)
-    static allowedMethods = [index: 'GET', adicionarProduto: 'POST']
+    static allowedMethods = [index: 'GET', adicionarProduto: 'POST', removerProduto: 'DELETE']
 
     //Variável do controller
     CarrinhoCompras carrinhoCompras = new CarrinhoCompras()
@@ -45,5 +45,17 @@ class CarrinhoComprasController {
         }
         carrinhoCompras.adicionarProduto(listaProduto)
         render([mensagem: "Produto adicionado com sucesso"] as JSON)
+    }
+
+    def removerProduto() {
+        Produto produto = Produto.get(params.id)
+        try {
+            carrinhoCompras.removerProduto(produto)
+        }
+        catch (Exception e) {
+            render([erro: e.message] as JSON)
+            return
+        }
+        render([sucesso: "Produto removido com sucesso"] as JSON)
     }
 }
