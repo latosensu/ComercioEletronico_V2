@@ -4,7 +4,7 @@ import grails.rest.Resource
 
 //Anotação para expor a classe como um recurso RESTful, respondendo em:
 //http://localhost:8080/produtos, nos formatos json e xml
-@Resource(uri = '/produtos', formats = ['json', 'xml'])
+@Resource(uri = '/produtos', formats = ['html','json', 'xml'])
 class Produto {
 
     String sku
