@@ -82,4 +82,9 @@ class CarrinhoComprasController {
         carrinhoCompras = new ArrayList<ListaProduto>()
         render([sucesso: "Pedido finalizado com sucesso"])
     }
+
+    def selecionarProduto(Produto produto){
+        //O respond por padrão manda para a view de mesmo nome da action
+        respond produto
+    }
 }
