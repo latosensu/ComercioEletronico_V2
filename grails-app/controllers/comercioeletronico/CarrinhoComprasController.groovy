@@ -24,7 +24,7 @@ class CarrinhoComprasController {
     static allowedMethods = [index: 'GET', adicionarProduto: 'POST', removerProduto: 'DELETE']
 
     //Variável do controller
-    CarrinhoCompras carrinhoCompras = new CarrinhoCompras()
+//    CarrinhoCompras carrinhoCompras = new CarrinhoCompras()
 
     //Bean utilizado para mostrar a mensagem adequada para cada tipo de erro
     def messageSource
@@ -106,4 +106,5 @@ class CarrinhoComprasController {
         //O respond por padrão manda para a view de mesmo nome da action
         respond produto
     }
+
 }

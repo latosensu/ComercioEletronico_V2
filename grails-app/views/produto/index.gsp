@@ -26,8 +26,12 @@
             </div>
             <a href="#">
                 <div class="panel-footer">
-                    <span class="pull-left">Ver Detalhes</span>
-                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <g:link controller="carrinhoCompras">
+                        <span class="pull-left">
+                            Ver Detalhes
+                        </span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    </g:link>
                     <div class="clearfix"></div>
                 </div>
             </a>
@@ -67,10 +71,13 @@
                                             <td>${produto.titulo}</td>
                                             <td>${produto.preco}</td>
                                             <td>
-                                                <g:link controller="carrinhoCompras" action="selecionarProduto" id="${produto.id}"class="btn btn-success btn-circle"><i class="fa fa-plus"></i>
+                                                <g:link controller="carrinhoCompras" action="selecionarProduto"
+                                                        id="${produto.id}" class="btn btn-success btn-circle"><i
+                                                        class="fa fa-plus"></i>
                                                 </g:link>
 
-                                                <g:link controller="produto" action="show" id="${produto.id}"class="btn btn-info btn-circle"><i class="fa fa-eye"></i>
+                                                <g:link controller="produto" action="show" id="${produto.id}"
+                                                        class="btn btn-info btn-circle"><i class="fa fa-eye"></i>
                                                 </g:link>
                                             </td>
                                         </tr>
