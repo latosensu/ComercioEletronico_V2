@@ -37,7 +37,19 @@ class CarrinhoComprasController {
         //Por convenção, ao utilizar o respond, o Grails procura uma view index,
         //como não existe uma view gsp, a view JSON que definimos é encontrada
         //O carrinhoCompras é utilizado como model da view
+        CarrinhoCompras carrinhoCompras = obterCarrinhoCompras()
         respond carrinhoCompras
+    }
+
+    //Esse método procura o carrinho na sessão, se não encontrar, cria um novo carrinho e coloca na sessão
+    private CarrinhoCompras obterCarrinhoCompras() {
+
+        CarrinhoCompras carrinhoCompras = session['carrinhoCompras']
+        if (!carrinhoCompras){
+            carrinhoCompras = new CarrinhoCompras()
+            session.carrinhoCompras = carrinhoCompras
+        }
+        return carrinhoCompras
     }
 
     def adicionarProduto(ListaProduto listaProduto) {
@@ -48,6 +60,7 @@ class CarrinhoComprasController {
             render erros as JSON
             return
         }
+        CarrinhoCompras carrinhoCompras = obterCarrinhoCompras()
         carrinhoCompras.adicionarProduto(listaProduto)
         render([mensagem: "Produto adicionado com sucesso"] as JSON)
     }
@@ -55,6 +68,7 @@ class CarrinhoComprasController {
     def removerProduto() {
         Produto produto = Produto.get(params.id)
         try {
+            CarrinhoCompras carrinhoCompras = obterCarrinhoCompras()
             carrinhoCompras.removerProduto(produto)
         }
         catch (Exception e) {
@@ -65,6 +79,7 @@ class CarrinhoComprasController {
     }
 
     def finalizarCarrinho() {
+        CarrinhoCompras carrinhoCompras = obterCarrinhoCompras()
         try {
             pedidoService.registrarPedido(carrinhoCompras)
         }
@@ -79,7 +94,7 @@ class CarrinhoComprasController {
         }
         //Se finalizarmos o pedido, reiniciamos nosso carrinho de compras
         //e mostramos mensagem de sucesso
-        carrinhoCompras = new ArrayList<ListaProduto>()
+        session['carrinhoCompras'] = new ArrayList<ListaProduto>()
         render([sucesso: "Pedido finalizado com sucesso"])
     }
 

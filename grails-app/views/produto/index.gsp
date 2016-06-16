@@ -19,8 +19,8 @@
                         <i class="fa fa-shopping-cart fa-3x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div>Itens: </div>
-                        <div>Total: </div>
+                        <div>Itens: ${session["carrinhoCompras"]?.numeroItens?:0}</div>
+                        <div>Total: ${session["carrinhoCompras"]?.precoTotal?:0}</div>
                     </div>
                 </div>
             </div>
