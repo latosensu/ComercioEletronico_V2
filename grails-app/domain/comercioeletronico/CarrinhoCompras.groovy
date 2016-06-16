@@ -15,6 +15,19 @@ class CarrinhoCompras {
     //Com o mapWith informamos que a classe não deverá ser mapeada no banco de dados
     static mapWith = "none"
 
+    //Uma classe pode ter um ou vários transientes
+    static transients = ['numeroItens', 'precoTotal']
+
+    //Cada transiente deve ter seu próprio get
+    Integer getNumeroItens() {
+        return itens.size()
+    }
+    BigDecimal getPrecoTotal() {
+        itens.inject(0, { inicial, item ->
+            return inicial + item.precoTotal
+        })
+    }
+
     static constraints = {
     }
 }
