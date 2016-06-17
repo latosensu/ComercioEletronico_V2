@@ -59,5 +59,6 @@ class CarrinhoCompras {
     }
 
     static constraints = {
+        usuario nullable: true
     }
 }

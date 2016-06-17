@@ -34,6 +34,8 @@ class CarrinhoComprasController {
     //dependência para nós.
     def pedidoService
 
+    def springSecurityService
+
     def index() {
         //Por convenção, ao utilizar o respond, o Grails procura uma view index,
         //como não existe uma view gsp, a view JSON que definimos é encontrada
@@ -48,6 +50,7 @@ class CarrinhoComprasController {
         CarrinhoCompras carrinhoCompras = session['carrinhoCompras']
         if (!carrinhoCompras){
             carrinhoCompras = new CarrinhoCompras()
+            carrinhoCompras.usuario = springSecurityService.currentUser
 
         }
         return carrinhoCompras

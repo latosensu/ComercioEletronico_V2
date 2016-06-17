@@ -25,12 +25,13 @@ class CarrinhoComprasTagLib {
                     </div>
                     <a href="#">
                         <div class="panel-footer">
-                            <g:link controller="carrinhoCompras">
-                                <span class="pull-left">
-                                    Ver Detalhes
-                                </span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                            </g:link>
+                            ${g.link(controller: "carrinhoCompras"){
+                                '''<span class="pull-left">
+                                        Ver Detalhes
+                                    </span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                '''
+                            }}
                             <div class="clearfix"></div>
                         </div>
                     </a>

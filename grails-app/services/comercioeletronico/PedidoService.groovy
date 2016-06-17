@@ -18,7 +18,7 @@ class PedidoService {
     Pedido registrarPedido(CarrinhoCompras carrinhoCompras) {
         Pedido novoPedido = new Pedido(carrinhoCompras.properties)
         novoPedido.dataPedido = new Date()
-        novoPedido.usuario = springSecurityService.currentUser
+        novoPedido.usuario = novoPedido.usuario?:springSecurityService.currentUser
         if (!novoPedido.save()) {
             throw new ValidationException("", novoPedido.errors)
         }
