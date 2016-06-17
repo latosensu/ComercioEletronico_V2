@@ -25,6 +25,13 @@ class Usuario implements Serializable {
 		this.password = password
 	}
 
+	Usuario(String username, String password, String email) {
+		this()
+		this.username = username
+		this.password = password
+		this.email = email
+	}
+
 	Set<Papel> getAuthorities() {
 		UsuarioPapel.findAllByUsuario(this)*.papel
 	}
