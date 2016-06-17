@@ -8,6 +8,8 @@ import grails.validation.ValidationException
 @Transactional
 class PedidoService {
 
+    def springSecurityService
+
     //Criamos um service para registrar o pedido, pois poderíamos
     //ter regras de negócio complexas aqui, permitindo ou não o registro
     //do pedido. Se simplesmente criássemos uma nova instância de Pedido
@@ -16,6 +18,7 @@ class PedidoService {
     Pedido registrarPedido(CarrinhoCompras carrinhoCompras) {
         Pedido novoPedido = new Pedido(carrinhoCompras.properties)
         novoPedido.dataPedido = new Date()
+        novoPedido.usuario = springSecurityService.currentUser
         if (!novoPedido.save()) {
             throw new ValidationException("", novoPedido.errors)
         }

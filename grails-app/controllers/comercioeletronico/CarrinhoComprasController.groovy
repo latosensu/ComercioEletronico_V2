@@ -2,7 +2,8 @@ package comercioeletronico
 
 import grails.converters.JSON
 import grails.validation.ValidationException
-
+import grails.plugin.springsecurity.annotation.Secured
+@Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
 class CarrinhoComprasController {
 
     //Podemos alterar o escopo do controller para session (por padrão é singleton)
@@ -85,6 +86,7 @@ class CarrinhoComprasController {
 //        render([sucesso: "Produto removido com sucesso"] as JSON)
     }
 
+    @Secured(["IS_AUTHENTICATED_FULLY"])
     def finalizarCarrinho() {
         CarrinhoCompras carrinhoCompras = obterCarrinhoCompras()
         def novoPedido = null

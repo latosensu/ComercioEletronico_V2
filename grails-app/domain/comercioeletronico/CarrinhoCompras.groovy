@@ -3,6 +3,8 @@ package comercioeletronico
 //A classe CarrinhoCompras não deve ser armazenada no banco de dados
 class CarrinhoCompras {
 
+    Usuario usuario
+
     //Podemos especificar a variável itens, definindo seu tipo como List de
     //ListaProduto. Podemos também inicializá-la. No caso como ArrayList
     //que é uma classe que herda de List

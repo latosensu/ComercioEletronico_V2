@@ -5,6 +5,7 @@ class Pedido {
     static hasMany = [itens: ListaProduto]
 
     Date dataPedido
+    Usuario usuario
     static transients = ['total']
 
     BigDecimal getTotal() {
