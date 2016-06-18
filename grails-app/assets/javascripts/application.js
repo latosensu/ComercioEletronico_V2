@@ -9,6 +9,7 @@
 //= require jquery-2.2.0.min
 //= require bootstrap
 //= require sb-admin-2
+//= require metis-menu/js/metisMenu
 //= require_self
 
 if (typeof jQuery !== 'undefined') {
